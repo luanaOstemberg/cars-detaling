@@ -1,5 +1,5 @@
 export default function Home() {
     return (
-        <h1>Hola Mundo</h1>
+        <main style={{ "background": "black" }}>Hola Mundo</main>
     )
 }
