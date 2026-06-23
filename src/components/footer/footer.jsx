@@ -6,7 +6,7 @@ export default function Footer() {
             <div className={styles.container__links}>
             
             <Link className={styles.container__link} target="_blank" to={"https://wa.me/5491140634484"}><i class={`bi bi-whatsapp`}></i>
-                WhatsAp</Link>
+                WhatsApp</Link>
             <Link className={styles.container__link} target="_blank" to={"https://www.instagram.com/vgesteticavehicular"}><i class={` bi bi-instagram`}></i>Instagram</Link>
             </div>
             <p className={styles.text__copy}>&copy; 2026 Todos los derechos reservados.</p>
