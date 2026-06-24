@@ -11,24 +11,20 @@ export const routes = createBrowserRouter([
         children: [
             {
                 index: true,
-                Component: Home
+                Component: Home,
             },
             {
                 path: "/servicios",
-                Component: Services
+                Component: Services,
             },
             {
-                {
-                    
-            { path: "/contactos",
-    Component:Contactos
-
-            }
-            
-        ]
+                path: "/contactos",
+                Component: Contactos,
+            },
+        ],
     },
     {
         path: "*",
-        element: <Navigate to={"/"} redirect />
-    }
+        element: <Navigate to={"/"} replace />,
+    },
 ]);
