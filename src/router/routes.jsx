@@ -1,8 +1,10 @@
-import { createBrowserRouter, Navigate } from "react-router";
-import Contactos from "../presentation/contactos/contactos";
+import { createBrowserRouter } from "react-router";
 import Home from "../presentation/home/home";
 import Layout from "../components/layout/layout";
 import Services from "../presentation/services/services";
+import Contacto from "../presentation/contactos/contacto";
+import Gallery from "../presentation/gallery/gallery";
+import NotFound from "../presentation/not-found/not-found";
 
 export const routes = createBrowserRouter([
     {
@@ -18,13 +20,17 @@ export const routes = createBrowserRouter([
                 Component: Services,
             },
             {
-                path: "/contactos",
-                Component: Contactos,
+                path: "/contacto",
+                Component: Contacto,
+            },
+            {
+                path: "/galeria",
+                Component: Gallery,
             },
         ],
     },
     {
         path: "*",
-        element: <Navigate to={"/"} replace />,
+        Component: NotFound,
     },
 ]);
