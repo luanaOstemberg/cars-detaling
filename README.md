@@ -1,18 +1,54 @@
-# React + Vite
+# Cars Detaling
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sitio web para un negocio de detailing automotriz. Desarrollado con React 19 + Vite 8.
 
-Currently, two official plugins are available:
+## Tecnologías
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** con React Compiler
+- **Vite 8**
+- **React Router 7**
+- **Bootstrap 5** + **Bootstrap Icons**
+- **CSS Modules**
+- **Pexels API** — imágenes dinámicas
 
-## React Compiler
+## Características
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Navegación SPA con animación de link activo
+- Galería dinámica con imágenes de Pexels
+- Servicios con imágenes relevantes desde la API de Pexels
+- Formulario de contacto con validación
+- Diseño responsive y modo oscuro
 
-Note: This will impact Vite dev & build performances.
+## Requisitos
 
-## Expanding the ESLint configuration
+- Node.js 18+
+- pnpm
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Instalación
+
+```bash
+pnpm install
+```
+
+## Variables de entorno
+
+Crear un archivo `.env` en la raíz:
+
+```env
+VITE_PEXELS_API_KEY=tu_api_key
+```
+
+Obtener una API key gratuita en [Pexels](https://www.pexels.com/api/).
+
+## Desarrollo
+
+```bash
+pnpm dev
+```
+
+## Producción
+
+```bash
+pnpm build
+pnpm preview
+```
