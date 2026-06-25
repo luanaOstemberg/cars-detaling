@@ -36,7 +36,6 @@ export default function ContactForm() {
         if (Object.keys(validationErrors).length > 0) return
 
         setStatus("sending")
-        // Simular envío
         await new Promise((resolve) => setTimeout(resolve, 1000))
         setStatus("sent")
         setForm(initialForm)
@@ -45,11 +44,11 @@ export default function ContactForm() {
     if (status === "sent") {
         return (
             <div className={styles.success}>
-                <i className="bi bi-check-circle-fill fs-1"></i>
-                <h3 className="mt-3">¡Mensaje enviado!</h3>
-                <p className="text-secondary">Te responderemos a la brevedad.</p>
-                <button className="btn btn-outline-primary mt-2" onClick={() => setStatus("idle")}>
-                    Enviar otro
+                <i className="bi bi-check-circle-fill"></i>
+                <h3>¡Mensaje enviado!</h3>
+                <p>Te responderemos a la brevedad.</p>
+                <button className={styles.successBtn} onClick={() => setStatus("idle")}>
+                    Enviar otro mensaje
                 </button>
             </div>
         )
@@ -57,57 +56,50 @@ export default function ContactForm() {
 
     return (
         <form onSubmit={handleSubmit} className={styles.form} noValidate>
-            <div className="mb-3">
-                <label htmlFor="name" className="form-label">Nombre</label>
+            <div className={styles.field}>
                 <input
                     id="name"
                     name="name"
                     type="text"
-                    className={`form-control ${errors.name ? "is-invalid" : ""}`}
                     placeholder="Tu nombre"
                     value={form.name}
                     onChange={handleChange}
+                    className={errors.name ? styles.inputError : ""}
                 />
-                {errors.name && <div className="invalid-feedback">{errors.name}</div>}
+                <label htmlFor="name">Nombre</label>
+                {errors.name && <span className={styles.error}>{errors.name}</span>}
             </div>
 
-            <div className="mb-3">
-                <label htmlFor="email" className="form-label">Email</label>
+            <div className={styles.field}>
                 <input
                     id="email"
                     name="email"
                     type="email"
-                    className={`form-control ${errors.email ? "is-invalid" : ""}`}
                     placeholder="Tu email"
                     value={form.email}
                     onChange={handleChange}
+                    className={errors.email ? styles.inputError : ""}
                 />
-                {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+                <label htmlFor="email">Email</label>
+                {errors.email && <span className={styles.error}>{errors.email}</span>}
             </div>
 
-            <div className="mb-3">
-                <label htmlFor="message" className="form-label">Mensaje</label>
+            <div className={styles.field}>
                 <textarea
                     id="message"
                     name="message"
                     rows={4}
-                    className={`form-control ${errors.message ? "is-invalid" : ""}`}
                     placeholder="Escribí tu mensaje"
                     value={form.message}
                     onChange={handleChange}
+                    className={errors.message ? styles.inputError : ""}
                 />
-                {errors.message && <div className="invalid-feedback">{errors.message}</div>}
+                <label htmlFor="message">Mensaje</label>
+                {errors.message && <span className={styles.error}>{errors.message}</span>}
             </div>
 
-            <button type="submit" className="btn btn-primary w-100" disabled={status === "sending"}>
-                {status === "sending" ? (
-                    <>
-                        <span className="spinner-border spinner-border-sm me-2" role="status" />
-                        Enviando...
-                    </>
-                ) : (
-                    "Enviar"
-                )}
+            <button type="submit" className={styles.submitBtn} disabled={status === "sending"}>
+                {status === "sending" ? "Enviando..." : "Enviar mensaje"}
             </button>
         </form>
     )

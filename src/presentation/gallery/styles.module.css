@@ -1,13 +1,128 @@
-.imageWrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    border-radius: 12px;
+.section {
+    padding: 5rem 0 6rem;
+    position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.image {
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.75rem;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #888;
+}
+
+.skeletonCarousel {
+    max-width: 800px;
+    height: 450px;
+    margin: 0 auto;
+    border-radius: 16px;
+    background: linear-gradient(90deg, #1a1a1a 25%, #222 50%, #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.carousel {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.viewport {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 188, 212, 0.15);
+}
+
+.track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 100%;
+    height: 450px;
+}
+
+.slide img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 2;
+}
+
+.arrow:hover {
+    background: rgba(0, 188, 212, 0.8);
+}
+
+.arrowLeft {
+    left: 16px;
+}
+
+.arrowRight {
+    right: 16px;
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1.25rem;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 50%;
+    background: #444;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.dot:hover {
+    background: #666;
+    transform: scale(1.2);
+}
+
+.dotActive {
+    background: #0dcaf0;
+    transform: scale(1.2);
 }

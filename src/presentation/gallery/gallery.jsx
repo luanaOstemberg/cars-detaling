@@ -1,49 +1,101 @@
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import styles from "./styles.module.css"
 
 const API_KEY = import.meta.env.VITE_PEXELS_API_KEY
 
 export default function Gallery() {
-    const [image, setImage] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const [images, setImages] = useState([])
+    const [current, setCurrent] = useState(0)
+    const [loading, setLoading] = useState(true)
 
-    async function fetchRandomImage() {
-        setLoading(true)
-        try {
-            const res = await fetch(
-                "https://api.pexels.com/v1/search?query=car+interior&per_page=30",
-                { headers: { Authorization: API_KEY } }
-            )
-            const data = await res.json()
-            const random = data.photos[Math.floor(Math.random() * data.photos.length)]
-            setImage(random.src.large2x)
-        } catch {
-            console.error("Error al obtener imagen de Pexels")
-        } finally {
-            setLoading(false)
+    useEffect(() => {
+        let cancelled = false
+
+        async function fetchImages() {
+            try {
+                const res = await fetch(
+                    "https://api.pexels.com/v1/search?query=car+detailing&per_page=6",
+                    { headers: { Authorization: API_KEY } }
+                )
+                const data = await res.json()
+                if (!cancelled && data.photos?.length > 0) {
+                    setImages(data.photos)
+                }
+            } catch {
+                console.error("Error fetching gallery images")
+            } finally {
+                if (!cancelled) setLoading(false)
+            }
         }
+
+        fetchImages()
+        return () => { cancelled = true }
+    }, [])
+
+    const next = useCallback(() => {
+        setCurrent((prev) => (prev + 1) % images.length)
+    }, [images.length])
+
+    const prev = useCallback(() => {
+        setCurrent((prev) => (prev - 1 + images.length) % images.length)
+    }, [images.length])
+
+    useEffect(() => {
+        if (images.length === 0) return
+        const timer = setInterval(next, 4000)
+        return () => clearInterval(timer)
+    }, [images.length, next])
+
+    if (loading) {
+        return (
+            <section className={styles.section}>
+                <div className={styles.header}>
+                    <h2 className={styles.title}>Galería</h2>
+                    <p className={styles.subtitle}>Conocé algunos de nuestros trabajos</p>
+                </div>
+                <div className={styles.skeletonCarousel} />
+            </section>
+        )
     }
 
     return (
-        <section className="container py-5 text-center">
-            <h2 className="mb-4">Galería</h2>
+        <section className={styles.section}>
+            <div className={styles.header}>
+                <h2 className={styles.title}>Galería</h2>
+                <p className={styles.subtitle}>Conocé algunos de nuestros trabajos</p>
+            </div>
 
-            <button className="btn btn-primary mb-4" onClick={fetchRandomImage} disabled={loading}>
-                {loading ? (
-                    <>
-                        <span className="spinner-border spinner-border-sm me-2" role="status" />
-                        Cargando...
-                    </>
-                ) : (
-                    "Obtener imagen aleatoria"
-                )}
-            </button>
+            <div className={styles.carousel}>
+                <div className={styles.viewport}>
+                    <div
+                        className={styles.track}
+                        style={{ transform: `translateX(-${current * 100}%)` }}
+                    >
+                        {images.map((photo) => (
+                            <div key={photo.id} className={styles.slide}>
+                                <img src={photo.src.large2x} alt={photo.alt || "Detailing"} />
+                            </div>
+                        ))}
+                    </div>
 
-            {image && (
-                <div className={styles.imageWrapper}>
-                    <img src={image} alt="Interior de vehículo" className={styles.image} />
+                    <button className={`${styles.arrow} ${styles.arrowLeft}`} onClick={prev}>
+                        <i className="bi bi-chevron-left"></i>
+                    </button>
+                    <button className={`${styles.arrow} ${styles.arrowRight}`} onClick={next}>
+                        <i className="bi bi-chevron-right"></i>
+                    </button>
                 </div>
-            )}
+
+                <div className={styles.dots}>
+                    {images.map((_, i) => (
+                        <button
+                            key={i}
+                            className={`${styles.dot} ${i === current ? styles.dotActive : ""}`}
+                            onClick={() => setCurrent(i)}
+                        />
+                    ))}
+                </div>
+            </div>
         </section>
     )
 }

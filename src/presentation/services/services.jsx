@@ -14,8 +14,8 @@ export default function Services() {
 
             <div className="container">
                 <div className={styles.grid}>
-                    {servicesData.map((service) => (
-                        <Cards key={service.id} {...service} />
+                    {servicesData.map((service, index) => (
+                        <Cards key={service.id} index={index} {...service} />
                     ))}
                 </div>
             </div>

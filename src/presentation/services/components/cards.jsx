@@ -4,7 +4,7 @@ import styles from "../styles.module.css"
 
 const API_KEY = import.meta.env.VITE_PEXELS_API_KEY
 
-export default function Cards({ title, subtitle, query, icon, btnText }) {
+export default function Cards({ title, subtitle, query, icon, btnText, index }) {
     const [img, setImg] = useState(null)
     const [loading, setLoading] = useState(true)
 
@@ -34,6 +34,7 @@ export default function Cards({ title, subtitle, query, icon, btnText }) {
     }, [query, title])
 
     return (
+        <div className={styles.cardWrapper} style={{ animationDelay: `${index * 0.15}s` }}>
         <article className={styles.card}>
             <div className={styles.cardImage}>
                 {loading ? (
@@ -52,5 +53,6 @@ export default function Cards({ title, subtitle, query, icon, btnText }) {
                 <Link to="/contacto" className={styles.cardBtn}>{btnText}</Link>
             </div>
         </article>
+        </div>
     )
 }
